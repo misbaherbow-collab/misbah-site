@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misbah's SSC Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary: #6366f1;
+  --bg: #0f172a;
+  --card-bg: #1e293b;
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --border: #334155;
+  --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --date-badge: rgba(99, 102, 241, 0.15);
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Hind Siliguri', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 100vh;
+}
+
+.eng-font { font-family: 'Poppins', sans-serif; }
+
+.container{
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- VIEW: DISCOVER (Landing) --- */
+#view-discover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  padding-bottom: 50px;
+}
+
+.hero-section {
+  text-align: center;
+  margin-bottom: 40px;
+  animation: fadeInDown 0.8s ease;
+}
+
+.hero-title {
+  font-size: 3rem;
+  margin: 0;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin-top: 10px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  animation: fadeInUp 0.8s ease;
+}
+
+.menu-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 25px 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 140px;
+}
+
+.menu-card:active { transform: scale(0.96); background: #263345; }
+
+.menu-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.menu-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* --- VIEW: SUBJECTS LIST --- */
+.header-nav {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-top: 10px;
+}
+
+.back-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-right: 15px;
+  transition: 0.2s;
+}
+.back-btn:active { transform: scale(0.95); }
+
+.page-title { margin: 0; font-size: 1.4rem; }
+
+.subject-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.subject-card {
+  background: var(--card-bg);
+  padding: 15px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.subject-card:active { transform: scale(0.97); }
+
+.subj-name { font-weight: 600; font-size: 1rem; margin-bottom: 8px; }
+.subj-progress { height: 6px; background: #334155; border-radius: 10px; overflow: hidden; }
+.subj-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; }
+.subj-stat { font-size: 0.8rem; color: var(--text-muted); margin-top: 5px; text-align: right; }
+
+
+/* --- VIEW: CHAPTERS --- */
+.chapter-list {
+  background: var(--card-bg);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 10px;
+}
+
+.chapter-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  justify-content: space-between; /* To space out name and date */
+}
+.chapter-item:last-child { border-bottom: none; }
+
+.chapter-left {
+  display: flex;
+  align-items: center;
+}
+
+.chapter-item.done .chapter-left span {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* Date Badge Style */
+.date-badge {
+  font-size: 0.75rem;
+  color: var(--primary);
+  background: var(--date-badge);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  white-space: nowrap;
+  margin-left: 10px;
+}
+
+.chapter-item.done .date-badge {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--primary);
+  border-radius: 6px;
+  margin-right: 15px;
+  position: relative;
+  background: transparent;
+  flex-shrink: 0;
+}
+input[type="checkbox"]:checked { background: var(--primary); }
+input[type="checkbox"]:checked::after {
+  content: '✔'; position: absolute; color: white;
+  font-size: 14px; left: 4px; top: 0px;
+}
+
+/* --- VIEW: OVERALL PROGRESS --- */
+.progress-big-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid var(--border);
+  margin-bottom: 25px;
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+}
+
+.big-percent {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  margin: 5px 0;
+}
+
+.progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-bottom: 30px;
+}
+
+.prog-detail-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  transition: transform 0.2s;
+}
+
+.prog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.prog-name { font-size: 1.1rem; font-weight: 600; color: var(--text); }
+.prog-percent { color: var(--primary); font-weight: 700; font-family: 'Poppins', sans-serif; }
+
+.prog-bar-bg {
+  height: 8px;
+  background: #334155;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.prog-bar-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.prog-stat {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+.hidden { display: none !important; }
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- VIEW 1: DISCOVER -->
+  <div id="view-discover">
+    <div class="hero-section">
+      <h1 class="hero-title eng-font">New Start</h1>
+      <p class="hero-subtitle eng-font">Misbah's ssc preparation</p>
+    </div>
+
+    <div class="menu-grid">
+      <div class="menu-card" onclick="goToSubjects()">
+        <div class="menu-icon">📚</div>
+        <div class="menu-text">বিষয় সমূহ</div>
+      </div>
+      <div class="menu-card" onclick="goToProgress()">
+        <div class="menu-icon">📊</div>
+        <div class="menu-text">আপনার অগ্রগতি</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW 2: SUBJECTS LIST -->
+  <div id="view-subjects" class="hidden">
+    <div class="header-nav">
+      <button class="back-btn" onclick="goBack('view-discover')">← Back</button>
+      <h2 class="page-title">বিষয় সমূহ</h2>
+    </div>
+    <div class="subject-grid" id="subjectsGrid"></div>
+  </div>
+
+  <!-- VIEW 3: CHAPTER DETAILS -->
+  <div id="view-chapters" class="hidden">
+    <div class="header-nav">
+      <button class="back-btn" onclick="goBack('view-subjects')">← Back</button>
+      <h2 class="page-title" id="chapterPageTitle">Subject Name</h2>
+    </div>
+    <div class="chapter-list" id="chapterList"></div>
+  </div>
+
+  <!-- VIEW 4: OVERALL PROGRESS -->
+  <div id="view-progress" class="hidden">
+    <div class="header-nav">
+      <button class="back-btn" onclick="goBack('view-discover')">← Back</button>
+      <h2 class="page-title">আপনার অগ্রগতি</h2>
+    </div>
+
+    <div class="progress-big-card">
+      <div style="font-size:1rem; color:var(--text-muted);">মোট সম্পন্ন</div>
+      <div class="big-percent" id="totalPercent">0%</div>
+      <div style="font-size:0.9rem; color:var(--text-muted);">
+        <span id="completedCount" style="color:var(--text)">0</span> / <span id="totalCount">0</span> অধ্যায়
+      </div>
+    </div>
+
+    <h3 style="margin: 0 0 15px 0; font-size: 1.1rem; color: var(--text-muted);">বিষয়ভিত্তিক বিবরণ</h3>
+    <div id="progressDetailList" class="progress-list"></div>
+  </div>
+
+</div>
+
+<script>
+// --- CONFIGURATION ---
+const subjectsConfig = [
+  { name: "বাংলা ১ম", total: 8 },
+  { name: "বাংলা ২য়", total: 20 },
+  { name: "English 1st", total: 20 },
+  { name: "English 2nd", total: 15 },
+  { name: "কুরআন", total: 20 },
+  { name: "আকায়িদ", total: 20 },
+  { name: "হাদিস", total: 20 },
+  { name: "ইসলামের ইতিহাস", total: 15 },
+  { name: "মানতিক", total: 10 },
+  { name: "আরবী ১ম", total: 20 },
+  { name: "আরবী ২য়", total: 20 }
+];
+
+// --- DATA & DATE ROUTINE LOGIC ---
+let appData = JSON.parse(localStorage.getItem('misbah_ssc_tracker_v2')) || [];
+
+const START_DATE_STR = '2025-12-17';
+const END_DATE_STR = '2026-03-01';
+
+// Initialize or Update Data
+if (appData.length === 0) {
+  initializeData();
+} else {
+  // Check if dates are assigned, if not, re-assign (helps if updating from old version)
+  if(!appData[0].chapters[0].date) {
+    assignRoutineDates();
+    saveData();
+  }
+}
+
+function initializeData() {
+  // 1. Create Basic Structure
+  appData = subjectsConfig.map(conf => ({
+    name: conf.name,
+    chapters: Array.from({length: conf.total}, (_, i) => ({
+      name: `অধ্যায় ${i + 1}`,
+      done: false,
+      date: null // Will be filled below
+    }))
+  }));
+
+  // 2. Calculate Routine
+  assignRoutineDates();
+  saveData();
+}
+
+function assignRoutineDates() {
+  const startDate = new Date(START_DATE_STR);
+  const endDate = new Date(END_DATE_STR);
+  
+  // Create list of all available days
+  const allDays = [];
+  let curr = new Date(startDate);
+  while (curr <= endDate) {
+    allDays.push(new Date(curr));
+    curr.setDate(curr.getDate() + 1);
+  }
+
+  // Count total chapters
+  let totalChapters = 0;
+  appData.forEach(s => totalChapters += s.chapters.length);
+
+  // Calculate chapters per day (approx)
+  const chaptersPerDay = Math.ceil(totalChapters / allDays.length);
+
+  // Create "Buckets" for each subject to maintain chapter order (1, 2, 3...)
+  // Store indices: { subIdx: 0, chapIdx: 0 }
+  let buckets = [];
+  appData.forEach((s, sIdx) => {
+    let subjectChapters = [];
+    s.chapters.forEach((c, cIdx) => {
+      subjectChapters.push({ sIdx, cIdx });
+    });
+    buckets.push(subjectChapters); // Array of arrays
+  });
+
+  // Assign dates
+  let dayIndex = 0;
+  
+  while (dayIndex < allDays.length) {
+    const todayDateObj = allDays[dayIndex];
+    // Format date nicely: 17 Dec
+    const dateStr = todayDateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+    // Pick 'chaptersPerDay' tasks for today
+    for (let i = 0; i < chaptersPerDay; i++) {
+      // Find subjects that still have chapters left
+      let availableSubjects = [];
+      buckets.forEach((b, idx) => {
+        if (b.length > 0) availableSubjects.push(idx);
+      });
+
+      if (availableSubjects.length === 0) break; // All done
+
+      // Pick a random subject from available ones
+      const randomSubjIndex = availableSubjects[Math.floor(Math.random() * availableSubjects.length)];
+      
+      // Get the next chapter from that subject (First in, First out for order)
+      const task = buckets[randomSubjIndex].shift();
+
+      // Assign date to data
+      appData[task.sIdx].chapters[task.cIdx].date = dateStr;
+    }
+
+    dayIndex++;
+  }
+}
+
+function saveData() {
+  localStorage.setItem('misbah_ssc_tracker_v2', JSON.stringify(appData));
+}
+
+// --- NAVIGATION ---
+function hideAllViews() {
+  document.getElementById('view-discover').classList.add('hidden');
+  document.getElementById('view-subjects').classList.add('hidden');
+  document.getElementById('view-chapters').classList.add('hidden');
+  document.getElementById('view-progress').classList.add('hidden');
+}
+
+function goBack(targetId) {
+  hideAllViews();
+  document.getElementById(targetId).classList.remove('hidden');
+  if(targetId === 'view-subjects') renderSubjects();
+}
+
+function goToSubjects() {
+  hideAllViews();
+  document.getElementById('view-subjects').classList.remove('hidden');
+  renderSubjects();
+}
+
+function goToProgress() {
+  hideAllViews();
+  document.getElementById('view-progress').classList.remove('hidden');
+  renderProgress();
+}
+
+// --- RENDER FUNCTIONS ---
+
+function renderSubjects() {
+  const grid = document.getElementById('subjectsGrid');
+  grid.innerHTML = '';
+
+  appData.forEach((sub, index) => {
+    const total = sub.chapters.length;
+    const done = sub.chapters.filter(c => c.done).length;
+    const percent = Math.round((done / total) * 100);
+
+    const card = document.createElement('div');
+    card.className = 'subject-card';
+    card.onclick = () => openChapterView(index);
+    card.innerHTML = `
+      <div class="subj-name">${sub.name}</div>
+      <div class="subj-progress">
+        <div class="subj-fill" style="width: ${percent}%"></div>
+      </div>
+      <div class="subj-stat">${done}/${total}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function openChapterView(index) {
+  hideAllViews();
+  document.getElementById('view-chapters').classList.remove('hidden');
+  
+  const subject = appData[index];
+  document.getElementById('chapterPageTitle').innerText = subject.name;
+  
+  const list = document.getElementById('chapterList');
+  list.innerHTML = '';
+
+  subject.chapters.forEach((chap, cIndex) => {
+    const item = document.createElement('div');
+    item.className = `chapter-item ${chap.done ? 'done' : ''}`;
+    
+    // Checkbox click logic
+    item.onclick = (e) => {
+      if (e.target.type !== 'checkbox') {
+        toggleChapter(index, cIndex);
+      }
+    };
+
+    // Date Logic: If no date assigned (overflow), show 'Extra'
+    const displayDate = chap.date ? chap.date.replace(' 2025', '').replace(' 2026', "'26") : 'TBA';
+
+    item.innerHTML = `
+      <div class="chapter-left">
+        <input type="checkbox" ${chap.done ? 'checked' : ''} onchange="toggleChapter(${index}, ${cIndex})">
+        <span>${chap.name}</span>
+      </div>
+      <div class="date-badge">${displayDate}</div>
+    `;
+    list.appendChild(item);
+  });
+}
+
+function toggleChapter(subIndex, chapIndex) {
+  appData[subIndex].chapters[chapIndex].done = !appData[subIndex].chapters[chapIndex].done;
+  saveData();
+  openChapterView(subIndex); // Re-render to update style
+}
+
+function renderProgress() {
+  let totalChapters = 0;
+  let totalDone = 0;
+  
+  const listContainer = document.getElementById('progressDetailList');
+  listContainer.innerHTML = '';
+
+  appData.forEach(sub => {
+    const subTotal = sub.chapters.length;
+    const subDone = sub.chapters.filter(c => c.done).length;
+    const subPercent = Math.round((subDone / subTotal) * 100);
+
+    totalChapters += subTotal;
+    totalDone += subDone;
+
+    const item = document.createElement('div');
+    item.className = 'prog-detail-card';
+    item.innerHTML = `
+      <div class="prog-header">
+        <span class="prog-name">${sub.name}</span>
+        <span class="prog-percent">${subPercent}%</span>
+      </div>
+      <div class="prog-bar-bg">
+        <div class="prog-bar-fill" style="width: ${subPercent}%"></div>
+      </div>
+      <div class="prog-stat">
+        <span>সম্পন্ন: <strong style="color:var(--text)">${subDone}</strong> টি</span>
+        <span>মোট: ${subTotal} টি</span>
+      </div>
+    `;
+    listContainer.appendChild(item);
+  });
+
+  const percent = totalChapters === 0 ? 0 : Math.round((totalDone / totalChapters) * 100);
+  document.getElementById('totalPercent').innerText = percent + "%";
+  document.getElementById('completedCount').innerText = totalDone;
+  document.getElementById('totalCount').innerText = totalChapters;
+}
+
+</script>
+</body>
+</html>
